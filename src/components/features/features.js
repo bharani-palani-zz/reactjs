@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Features extends Component {
-    handleClick(e) {
-        //e.preventDefault();
-        console.log(e);
+    state = {
+        stories: []
+    }
+    componentDidMount() {
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(res => {
+                this.setState({ stories: res.data });
+            });
+    }
+    myfunc(e) {
+        alert(e)
     }
     render() {
-        const numbers = this.props.tags || [1,2,3];
-        const listItems = numbers.map((number,i) =>
-            <li onClick={() => this.handleClick(i)} key={i}>{number} => {Math.sin(number)}</li>
-        );
         return (
-            <ul>{listItems}</ul>
-        );
+            <div className="container mt-5 mb-5">
+                <ul className="list-group">
+                    {this.state.stories.map(story =>
+                        <li onClick={this.myfunc.bind(this, story.id)} className="list-group-item" key={story.id}>{story.userId} / {story.title}</li>
+                    )}
+                </ul>
+            </div>
+        )
     }
 }
 
