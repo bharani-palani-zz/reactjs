@@ -23,15 +23,16 @@ class Pricing extends Component {
             widgets: this.state.widgets.filter(widget => widget.id !== id)
         })
     }
-    editUser(id,name){
+    editUser(id,e){
+        const index = this.state.widgets.findIndex((widget) => {return widget.id === id})
+        const widget = Object.assign({},this.state.widgets[index]);
+        widget.head = e.target.value;
+        const widgets = Object.assign({}, this.state.widgets)
+        widgets[index] = widget;
+        console.log(Array.isArray(this.state.widgets))
         this.setState({
-            widgets: this.state.widgets.forEach(widget => {
-                if(widget.id === id) {
-                    widget.head = name;
-                }
-            })
-        })
-        console.log(this.state.widgets);
+            widgets: widgets
+        });
     }
     render() {
         return (
@@ -40,10 +41,10 @@ class Pricing extends Component {
                     <Form sendNewObj={this.dispatchNewUser.bind(this)} />
                 </div>
                 <div className="row mt-2">
-                    {this.state.widgets.map((widget, i) => {
-                        return <div key={i} className="col-lg-3">
+                    {Array.isArray(this.state.widgets) && this.state.widgets.map((widget, i) => 
+                        <div key={i} className="col-sm-6 col-md-3 col-lg-3">
                             <Widget 
-                                dispatchEditName={this.editUser.bind(this)}
+                                dispatchEditName={this.editUser.bind(this,widget.id)}
                                 dispatchDeleteId={this.deleteUser.bind(this)}
                                 id={widget.id}
                                 head={widget.head} 
@@ -51,7 +52,7 @@ class Pricing extends Component {
                                 footer={widget.footer} 
                             />
                         </div>
-                    })}
+                    )}
                 </div>
             </div>
         );
