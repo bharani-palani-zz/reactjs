@@ -8,6 +8,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import Pricing from './components/pricing/pricing';
 import Features from './components/features/features';
 import ReduxHome from './components/reduxtuts/reduxhome';
+import FormTuts from './components/formtuts/formtuts';
 
 import { Provider } from 'react-redux';
 import store from './components/reduxtuts/store';
@@ -23,6 +24,7 @@ class App extends Component {
 							<Route path={"features"} component={Features} />
 							<Route path={"pricing"} component={Pricing} />
 							<Route path={"redux"} component={ReduxHome} />
+							<Route path={"forms"} component={FormTuts} />
 						</Router>
 					</div>
 					<Footer />

@@ -21,9 +21,10 @@ export const createPost = postData => dispatch => {
     })
     .then(res => res.json())
     .then(post =>
+        {console.log(post)
         dispatch({
             type: NEW_POST,
             payload: post
-        })
+        })}
     );
 };
